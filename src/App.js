@@ -7,7 +7,7 @@ import { Button, FormControl, Input, InputLabel } from "@material-ui/core";
 
 function App() {
   const [input, setInput] = useState("");
-  const [todos, setTodos] = useState(["abc", "def"]);
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
     db.collection("todos")
@@ -22,10 +22,9 @@ function App() {
   const addTodo = (e) => {
     e.preventDefault();
     db.collection("todos").add({
-      todo: input,
+      todo: input,//field name in firebase is todo
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    // setTodos([...todos,input])
     setInput("");
   };
 

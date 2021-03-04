@@ -3,13 +3,14 @@ import {
   Button,
   List,
   ListItem,
-  ListItemAvatar,
   ListItemText,
   Modal,
 } from "@material-ui/core";
 import { db } from "./firebase";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { makeStyles } from "@material-ui/core/styles";
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,7 +43,7 @@ const Todo = (props) => {
     <>
       <Modal open={open} onClose={(e) => setOpen(false)}>
         <div className={classes.paper}>
-          <h1>I am modal</h1>
+          <h1>Todo Details</h1>
           <input
             placeholder={props.text.todo}
             value={input}
@@ -54,23 +55,18 @@ const Todo = (props) => {
 
       <List className="todo__list">
         <ListItem>
-          <ListItemAvatar></ListItemAvatar>
-          <ListItemText primary="Todo" secondary={props.text.todo} />
+          
+          <PlaylistAddCheckIcon color="primary"/>
+          <ListItemText  primary={props.text.todo} />
         </ListItem>
         <button onClick={(e) => setOpen(true)}>Edit</button>
         <DeleteForeverIcon
+        color="secondary"
           onClick={(e) => {
             db.collection("todos").doc(props.text.id).delete();
           }}
         />
-        <Button
-          color="secondary"
-          onClick={(e) => {
-            db.collection("todos").doc(props.text.id).delete();
-          }}
-        >
-          DELETE ME
-        </Button>
+        
       </List>
     </>
   );
